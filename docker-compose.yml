@@ -1,0 +1,51 @@
+services:
+  cloner:
+    build:
+      context: .
+    volumes:
+      - ./:/app
+    container_name: repo_cloner
+
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: my_ferme
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:5.0
+    restart: always
+    ports:
+      - '8080:80'
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: admin
+      PMA_PASSWORD: admin
+
+  symfony:
+    build:
+      context: ./my-ferme
+      dockerfile: Dockerfile
+    volumes:
+      - ./my-ferme:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql
+
+  vuejs:
+    build:
+      context: ./my-ferme-front
+      dockerfile: Dockerfile
+    volumes:
+      - ./my-ferme-front:/app
+    ports:
+      - "5173:5173"
+
+volumes:
+  mysql_data:
