@@ -19,7 +19,7 @@ update_or_clone_repo() {
 }
 
 # Cloner ou mettre à jour les deux dépôts
-update_or_clone_repo "https://github.com/$GITHUB_ACCOUNT/$REPO_FRONT.git" "$TARGET_DIR/$REPO_FRONT"
-update_or_clone_repo "https://github.com/$GITHUB_ACCOUNT/$REPO_BACK.git" "$TARGET_DIR/$REPO_BACK"
+update_or_clone_repo "https://github.com/$GITHUB_ACCOUNT/$REPO_FRONT.git" "$REPO_FRONT"
+update_or_clone_repo "https://github.com/$GITHUB_ACCOUNT/$REPO_BACK.git" "$REPO_BACK"
 
 echo "Opération git terminée."
